@@ -38,6 +38,9 @@ jobs:
           mkdir -p www
           touch www/index.html
 
+      - name: Accept Android SDK Licenses
+        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+      
       # Sinkronisasi Capacitor (membuat file konfigurasi native yang diperlukan)
       - name: Capacitor Sync
         run: npx cap sync android
