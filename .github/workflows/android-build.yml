@@ -1,0 +1,58 @@
+name: Build Android APK (Capacitor)
+
+# 1. EVENT: Kapan workflow ini akan berjalan
+on:
+  # Dipicu setiap kali ada push ke branch 'main'
+  push:
+    branches:
+      - main
+  # Memungkinkan pemicuan manual dari tab 'Actions' di GitHub
+  workflow_dispatch:
+
+# 2. JOBS: Tugas yang akan dieksekusi
+jobs:
+  build_android:
+    # Menggunakan runner Ubuntu yang disediakan GitHub, yang sudah memiliki Android SDK
+    runs-on: ubuntu-latest
+
+    # 3. STEPS: Urutan langkah yang akan dijalankan pada runner
+    steps:
+      # Mengambil (checkout) kode dari repositori
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Mengatur lingkungan Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Menginstal semua dependencies dari package.json
+      - name: Install Dependencies
+        run: npm install
+
+      # Membuat folder 'www' dan 'index.html' kosong. 
+      # Ini mengatasi masalah 'webDir missing' meskipun menggunakan URL jarak jauh.
+      - name: Create Empty www Folder
+        run: |
+          mkdir www
+          touch www/index.html
+
+      # Sinkronisasi Capacitor (membuat file konfigurasi native yang diperlukan)
+      - name: Capacitor Sync
+        run: npx cap sync android
+
+      # Memastikan file Gradle wrapper memiliki izin eksekusi
+      - name: Ensure Gradle Wrapper is Executable
+        run: chmod +x android/gradlew
+      
+      # Menjalankan build Gradle untuk menghasilkan APK
+      - name: Build Debug APK
+        run: cd android && ./gradlew assembleDebug
+
+      # Mengunggah file APK yang sudah jadi sebagai Artifact yang dapat diunduh
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: domino-app-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
