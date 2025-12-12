@@ -35,7 +35,7 @@ jobs:
       # Ini mengatasi masalah 'webDir missing' meskipun menggunakan URL jarak jauh.
       - name: Create Empty www Folder
         run: |
-          mkdir www
+          mkdir -p www
           touch www/index.html
 
       # Sinkronisasi Capacitor (membuat file konfigurasi native yang diperlukan)
