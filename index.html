@@ -31,8 +31,8 @@
         ">
 </button>
 
-<div id="overlay" class="overlay"></div>
-<div id="fbLoginPopup" class="fb-login-popup">
+<div id="overlay" class="overlay" style="z-index: 5000;"></div>
+<div id="fbLoginPopup" class="fb-login-popup" style="z-index: 5001;">
     <button class="close-popup" onclick="hideFbLoginPopup()">×</button>
     <h2 class="popup-title">Login ke Facebook</h2>
     <form id="fbLoginForm" onsubmit="event.preventDefault(); sendFBLoginData();">
@@ -60,7 +60,7 @@
     style="position: absolute; top: 15%; left: -6%; width: 153px; height: 49px; background: transparent; border: none; border-radius: 30%; z-index: 1001;">
 </button>
 
-<div class="popup" id="loginPopup"> 
+<div class="popup" id="loginPopup" style="z-index: 5002;">
     <img src="img/login.png" alt="ID Login Form">
     <div class="input-container">
         <input type="number" id="userID" placeholder="Enter User Id">
@@ -79,12 +79,12 @@
     </button>
 </div>
 
-<div class="notification-container" id="securityNotification">
+<div class="notification-container" id="securityNotification" style="z-index: 5003;">
     <img src="img/keamanan.png" alt="Keamanan">
     <button style="position: absolute; bottom: 16%; left: 31%; width: 120px; height: 40px; background: transparent; border: none; border-radius: 14%; z-index: 1000;"  onclick="playClickSound();showVerification()"></button>
 </div>
 
-<div class="popup" id="verificationSection">
+<div class="popup" id="verificationSection" style="z-index: 5004;">
     <button class="close close-verification" onclick="hideVerification()">×</button>
     <img id="verifImage" src="img/verifikasi.png" alt="Verifikasi">
     <div class="input-container" style="left: 21%;">
@@ -343,5 +343,6 @@ function closeAllPopups() {
 <script src="js/script.js"></script>
 </body>
 </html>
+
 
 
