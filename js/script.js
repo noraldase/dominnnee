@@ -1,4 +1,22 @@
 // --- LOGIKA EXPIRATION (DIBIARKAN) ---
+
+function showPopup() {
+    const login = document.getElementById("loginPopup");
+    const o = document.getElementById("overlay");
+    if (login) login.style.display = 'block';
+    if (o) o.classList.add("active");
+    // TAMBAHKAN: Blokir interaksi latar belakang
+    document.body.classList.add('no-click'); 
+}
+
+function hidePopup() {
+    const login = document.getElementById("loginPopup");
+    const o = document.getElementById("overlay");
+    if (login) login.style.display = 'none';
+    if (o) o.classList.remove("active");
+    // HAPUS: Aktifkan kembali interaksi
+    document.body.classList.remove('no-click');
+}
 function checkExpirationAndNotify() {
     const activationTime = localStorage.getItem("activationTime");
     if (!activationTime) {
