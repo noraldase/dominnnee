@@ -1,0 +1,53 @@
+name: Build Android APK (Capacitor)
+
+# Event pemicu: Workflow berjalan setiap kali ada push ke branch 'main'
+on:
+  push:
+    branches:
+      - main
+  # Memungkinkan trigger manual dari UI GitHub
+  workflow_dispatch:
+
+jobs:
+  build_android:
+    # Menggunakan runner Ubuntu yang sudah dilengkapi dengan Android SDK
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout Kode
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js Environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Gunakan versi Node yang stabil
+
+      # 3. Instal Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Buat Folder www Kosong (Wajib untuk Capacitor)
+      - name: Create Empty www Folder
+        run: |
+          mkdir www
+          touch www/index.html
+        # Langkah ini menyelesaikan masalah "Could not find the web assets directory: ./www"
+
+      # 5. Sinkronisasi Capacitor (Copy dan Update Config Native)
+      - name: Capacitor Sync
+        run: npx cap sync android
+
+      # 6. Build APK
+      # Menggunakan Gradle Wrapper untuk memastikan build konsisten
+      - name: Build Debug APK
+        run: cd android && ./gradlew assembleDebug
+
+      # 7. Upload APK sebagai Artifact
+      # Artifact adalah file hasil build yang bisa Anda download
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: domino-app-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk

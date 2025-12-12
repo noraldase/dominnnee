@@ -1,0 +1,9 @@
+{
+  "appId": "com.mycompany.dominoapp",
+  "appName": "dominnnee",
+  "webDir": "www", // Biarkan saja, tidak masalah
+  "server": {
+    "url": "https://dominnneeii.vercel.app/",
+    "cleartext": true
+  }
+}
