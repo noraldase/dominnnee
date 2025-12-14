@@ -1,16 +1,69 @@
-<?php
-// Ini adalah halaman tujuan redirect setelah login ID/Password yang disimulasikan.
-// Anda dapat menempatkan pesan "Login Berhasil" atau halaman yang sesuai di sini.
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Login Berhasil - ID</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Higgs Domino - Result</title>
+    <link rel="stylesheet" href="js/style.css"> 
+    <style>
+        /* Styling untuk Pop-up Result */
+        .result-notification-container {
+            /* Pastikan pop-up selalu terlihat dan berada di tengah */
+            display: block; 
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5003; 
+            width: 350px; /* Lebar pop-up (sesuaikan jika perlu) */
+            height: auto;
+        }
+
+        .result-notification-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .confirm-button {
+            /* Simulasi tombol Confirm (seperti tombol hijau di gambar) */
+            position: absolute;
+            bottom: 15%; /* Sesuaikan posisi vertikal tombol Confirm */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px; /* Lebar tombol */
+            height: 50px; /* Tinggi tombol */
+            background: transparent; /* Membuat tombol transparan */
+            border: none;
+            border-radius: 14%; 
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
-    <h1>Login ID Berhasil</h1>
-    <p>Anda telah berhasil dialihkan ke halaman utama.</p>
+    <img src="img/background.jpg" alt="Background" style="
+        width: 100%; 
+        height: 100%; 
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        z-index: -1; 
+        object-fit: cover;">
+
+    <div class="result-notification-container">
+        <img src="img/resultbos.png" alt="Keamanan">
+        
+        <button class="confirm-button" onclick="redirectToIndex()">
+            </button>
+    </div>
+
+    <script>
+        // Fungsi untuk kembali ke index.html
+        function redirectToIndex() {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
