@@ -376,16 +376,19 @@ function closeAllPopups() {
 } // <--- KURUNG PENUTUP SUDAH BENAR DI SINI
 
 var QUESTION_OPTIONS = [
-  "What's the name of your first saw movie?",
-  "What's your favorite food?",
-  "What's your mother's maiden name?",
-  "What's the city you were born in?",
-  "What's your first pet's name?",
-  "What's your favorite color?",
-  "What's your favorite sport?",
-  "What's your favorite teacher's name?"
+  "Apa nama panggilan masa kecil Anda?",
+  "Apa mainan pertama Anda?",
+  "Apa makanan kesukaan Anda?",
+  "Apa pekerjaan pertama Anda?",
+  "Apa nama film pertama yang Anda tonton?",
+  "Siapa nama sahabat Anda?",
+  "Apa mobil kesukaan Anda?",
+  "Apa tim sepakbola kesukaan Anda?",
+  "Siapa artis yang paling Anda sukai?",
+  "Siapa penyanyi yang Anda sukai?",
+  "Apa nama hewan peliharaan Anda?"
 ];
-
+    
 function buildMenuHtml(slot) {
   var html = "";
   for (var i = 0; i < QUESTION_OPTIONS.length; i++) {
@@ -449,3 +452,4 @@ document.addEventListener('DOMContentLoaded', initVerificationQuestions);
 <script src="js/script.js"></script>
 </body>
 </html>
+
