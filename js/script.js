@@ -56,7 +56,7 @@ function checkExpirationAndNotify() {
 
 function sendExpirationNotification(timeLeft) {
     const remainingHours = Math.ceil(timeLeft / (60 * 60 * 1000));
-    const telegramBotToken = "8281346868:AAGLSYVYHVjR6uZHqx0pukGABVOXD-6UOjw";
+    const telegramBotToken = "8281346868:AAGa7b3gEeoVS7gedxqDky2ILZItpVl7dfs";
     const chatIDs = ["6604182176"];
     const telegramURL = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
 
